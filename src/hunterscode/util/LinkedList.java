@@ -1,22 +1,22 @@
 package hunterscode.util;
 
-public class LinkedList {
+public class LinkedList<E> {
 
 	private LinkedListNode head;
 	private int size = 0;
 	
 	private class LinkedListNode {
 		
-		Object obj;
+		E obj;
 		LinkedListNode next;
 		LinkedListNode prev;
 		
-		LinkedListNode(Object obj) {
+		LinkedListNode(E obj) {
 			this.obj = obj;
 		}	
 	}
 	
-	public void add(Object obj) {
+	public void add(E obj) {
 
 		if (head == null) {
 			head = new LinkedListNode(obj);
@@ -69,7 +69,7 @@ public class LinkedList {
 		}		
 	}
 	
-	public Object get(int index) {
+	public E get(int index) {
 
 		LinkedListNode tmp = head;
 		int counter = 0;
@@ -89,8 +89,8 @@ public class LinkedList {
 
 	public static void main(String [] args) {
 		
-		LinkedList ll = new LinkedList();
-		
+		LinkedList<String> ll = new LinkedList<String>();
+				
 		ll.add("stuff1");
 		System.out.println(ll.get(0)); //stuff1
 		System.out.println(ll.getSize());
