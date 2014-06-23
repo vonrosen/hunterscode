@@ -4,23 +4,21 @@ public class QuickSort {
 
 	public static void main(String [] args) {
 		
-		int [] array = new int[10];
-		
-		array[0] = 3;
-		array[1] = 45;
-		array[2] = 5;
-		array[3] = 5;
-		array[4] = 7;
-		array[5] = 2;
-		array[6] = 33;
-		array[7] = 11;
-		array[8] = 12;
-		array[9] = 10;
-		
-		quickSort(array, 0, array.length - 1);
-		
-		for (int i = 0; i < array.length; ++i)
-			System.out.println(array[i]);
+		if (args != null && args.length > 0) {
+			
+			int [] array = new int[args.length];
+
+			for (int i = 0; i < args.length; ++i) {
+				
+				array[i] = Integer.parseInt(args[i]);
+			}
+
+			quickSort(array, 0, array.length - 1);
+			
+			for (int i = 0; i < array.length; ++i)
+				System.out.println(array[i]);			
+		}
+				
 	}
 	
 	public static void quickSort(int [] array, int left, int right) {
