@@ -3,6 +3,7 @@ package hunterscode.util;
 public class LinkedList<E> {
 
 	private LinkedListNode head;
+	private LinkedListNode tail;
 	private int size = 0;
 	
 	private class LinkedListNode {
@@ -20,6 +21,7 @@ public class LinkedList<E> {
 
 		if (head == null) {
 			head = new LinkedListNode(obj);
+			tail = head;
 		}
 		else {
 			LinkedListNode tmp = head;
@@ -30,6 +32,7 @@ public class LinkedList<E> {
 		
 			tmp.next = new LinkedListNode(obj);
 			tmp.next.prev = tmp;
+			tail = tmp.next;
 		}
 
 		size++;
@@ -59,6 +62,10 @@ public class LinkedList<E> {
 					if (tmp.next != null) {
 						tmp.next.prev = tmp.prev;
 					}
+					
+					if (tmp == tail) {
+						tail = tmp.prev;
+					}
 				}
 				size--;
 				return;
@@ -86,6 +93,10 @@ public class LinkedList<E> {
 		
 		return null;
 	}	
+	
+	public Object getTail() {
+		return tail.obj;
+	}
 
 	public static void main(String [] args) {
 		
@@ -105,6 +116,8 @@ public class LinkedList<E> {
 		ll.add("stuff4");
 		ll.add("stuff5");
 
+		System.out.println("tail=" + ll.getTail());
+		
 		System.out.println(ll.get(1)); //stuff2
 		System.out.println(ll.getSize());
 		System.out.println(ll.get(4)); //stuff5
@@ -121,6 +134,8 @@ public class LinkedList<E> {
 		ll.remove(1);
 		System.out.println(ll.get(1)); //stuff4
 		System.out.println(ll.getSize());
+		ll.remove(ll.getSize() - 1);
+		System.out.println("tail=" + ll.getTail());
 	}
 
 	public int getSize() {
