@@ -48,13 +48,7 @@ public class LinkedList<E> {
 			if (counter == index) {
 
 				if (tmp == head) {
-					
-					if (head.next == null) {
-						head = null;
-					}
-					else {
-						head = head.next;
-					}
+				    head = head.next;
 				}
 				else {
 					tmp.prev.next = tmp.next;
