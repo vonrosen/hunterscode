@@ -6,7 +6,7 @@ public class LinkedList<E> {
 	private LinkedListNode tail;
 	private int size = 0;
 	
-	protected class LinkedListNode {
+	class LinkedListNode {
 		
 		E obj;
 		LinkedListNode next;
