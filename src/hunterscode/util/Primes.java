@@ -6,9 +6,11 @@ import java.util.List;
 public class Primes {
 
     public static void main(String [] args) {
-        printPrimes(1000);
+        //printPrimes(1000);
+        printPrimesWithSieve(100);
     }
-    
+
+    //first try, not knowing anything about sieves
     public static void printPrimes(int numberOfPrimes) {
         int possiblePrime = 2;
         int primeCounter = 1;
@@ -39,5 +41,31 @@ public class Primes {
             possiblePrime += 2;
             if (primeCounter > numberOfPrimes) return;
         }
-    }    
+    }
+
+    //can calculate primes up to 10001 using a Sieve of Eratosthenes
+    public static void printPrimesWithSieve(int numberOfPrimes) {
+        byte [] possiblePrimes = new byte[10000];
+
+        //start with first possible prime
+        for (int i = 2; i < 10000; ++i) {
+
+            //already marked as not prime so move on
+            if (possiblePrimes[i - 2] == 1) continue;
+            
+            for (int x = i * 2; x < 10000; x += i) {
+                    possiblePrimes[x - 2] = 1;
+            }
+        }
+
+        int primeCounter = 1;
+        for (int i = 2; i < 10000; ++i) {
+            if (primeCounter > numberOfPrimes) return;
+            
+            if (possiblePrimes[i - 2] == 0) {
+                System.out.println(i);
+                primeCounter++;
+            }            
+        }
+    }
 }
