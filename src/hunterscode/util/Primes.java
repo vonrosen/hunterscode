@@ -6,8 +6,8 @@ import java.util.List;
 public class Primes {
 
     public static void main(String [] args) {
-        //printPrimes(1000);
-        printPrimesWithSieve(100);
+        //printPrimes(Integer.parseInt(args[0]));
+        printPrimesWithSieve(Integer.parseInt(args[0]));
     }
 
     //first try, not knowing anything about sieves
@@ -63,7 +63,13 @@ public class Primes {
             if (primeCounter > numberOfPrimes) return;
             
             if (possiblePrimes[i - 2] == 0) {
-                System.out.println(i);
+                
+                if (primeCounter == numberOfPrimes) {
+                    System.out.println(i);                    
+                }
+                else {
+                    System.out.print(i + ", ");    
+                }
                 primeCounter++;
             }            
         }
