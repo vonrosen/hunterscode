@@ -44,34 +44,44 @@ public class Primes {
     }
 
     //can calculate primes up to 10001 using a Sieve of Eratosthenes
-    public static void printPrimesWithSieve(int numberOfPrimes) {
+    public static void printPrimesWithSieve(int number) {
         byte [] possiblePrimes = new byte[10000];
-
-        //start with first possible prime
-        for (int i = 2; i < 10000; ++i) {
-
-            //already marked as not prime so move on
-            if (possiblePrimes[i - 2] == 1) continue;
+        int i = 2;
+        
+        //start with first possible prime, which is i = 2
+        while (true) {
+            boolean keepGoing = false;
             
             for (int x = i * 2; x < 10000; x += i) {
-                    possiblePrimes[x - 2] = 1;
+                possiblePrimes[x - 2] = 1;
             }
-        }
 
-        int primeCounter = 1;
-        for (int i = 2; i < 10000; ++i) {
-            if (primeCounter > numberOfPrimes) return;
-            
+            for (int k = i + 1; k < 10000; ++k) {
+                if (possiblePrimes[k - 2] == 0) {
+                    i = k;
+                    keepGoing = true;
+                    break;
+                }
+            }
+
+            if (!keepGoing)
+                break;
+        }
+        
+        if (number < 2) {
+            System.out.println("");
+            return;
+        }
+        
+        StringBuffer result = new StringBuffer();
+        
+        for (i = 2; i <= number; ++i) {
             if (possiblePrimes[i - 2] == 0) {
                 
-                if (primeCounter == numberOfPrimes) {
-                    System.out.println(i);                    
-                }
-                else {
-                    System.out.print(i + ", ");    
-                }
-                primeCounter++;
+                result.append(i + ", ");    
             }            
         }
+        
+        System.out.println(result.toString().substring(0, result.length() - 2));
     }
 }
