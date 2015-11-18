@@ -26,11 +26,49 @@ public class HuffmanTree {
 
     //first arg is string to build tree from, second is string to encode
     public static void main(String [] args) {
+        if (args.length != 2) {
+            System.out.println("Usage: java HuffmanTree <text to generating tree> <text to encode and decode>");
+            System.exit(1);
+        }
+        
         HuffmanTree tree = buildTree(args[0]);
         
-        System.out.println(encode(args[1], tree));
+        String encoded = encode(args[1], tree);
+        
+        System.out.println("Encoded output: " + encoded);
+        System.out.println("Decoded output: " + decode(encoded, tree));
     }
 
+    private static String decode(String encodedText, HuffmanTree tree) {
+        StringBuffer decoded = new StringBuffer();
+        int i = 0;
+
+        while (i < encodedText.length()) {
+            HuffmanTree tmpTree = tree;
+            
+            while (true) {
+                //check if at leaf node
+                if (tmpTree.left == null) {
+                    decoded.append(tmpTree.character);
+                    break;
+                }
+                
+                char bit = encodedText.charAt(i);                
+
+                if (bit == '0') {
+                    tmpTree = tmpTree.left;
+                }
+                else if (bit == '1') {
+                    tmpTree = tmpTree.right;
+                }
+
+                ++i;
+            }
+        }
+        
+        return decoded.toString();
+    }
+    
     private static String encode(String text, HuffmanTree tree) {
         StringBuffer codes = new StringBuffer();
         int i = 0;
@@ -70,7 +108,7 @@ public class HuffmanTree {
         }        
     }
    
-    public static HuffmanTree buildTree(String text) {
+    private static HuffmanTree buildTree(String text) {
         List<CharacterFrequencyMap> freqToChar = getCharFrequencies(text);
     
         return buildTree(freqToChar);
